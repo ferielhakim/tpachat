@@ -6,9 +6,8 @@ pipeline {
             steps {
 
                 echo 'Pulling...';
-                git branch: 'feriel',
-                url : 'https://github.com/feres5/TP_Achat_devops',
-                credentialsId: '28e0f0c9-b1c8-4508-ae0b-6dbfc965a0d6';
+                git branch: 'main',
+                url : 'https://github.com/ferielhakim/tpachat.git',
 
             }
 
