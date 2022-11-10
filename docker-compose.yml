@@ -12,9 +12,12 @@ services:
     restart: unless-stopped
     volumes:
       - db:/var/lib/mysql
-  app:
+  projetdevopsback:
+    
     depends_on:
       - mysqldb
+    image: ferielhakim/projetdevopsback
+    container_name: projetdevopsback  
     build: .
     restart: on-failure
     ports:
