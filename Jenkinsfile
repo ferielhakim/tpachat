@@ -46,7 +46,7 @@ pipeline {
         }
          stage('Build Docker image Backend') {
             steps {
-                sh 'docker build -t ferielhakim/projetdevopsbackend . '
+                sh 'docker build -t ferielhakim/projetdevopsback . '
                  
             }
         }
@@ -58,7 +58,7 @@ pipeline {
 			}
         stage('Push image Backend to Dockerhub') {
             steps {
-                sh 'docker push ferielhakim/projetdevopsbackend'
+                sh 'docker push ferielhakim/projetdevopsback'
                  
             }
         }
