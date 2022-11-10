@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout GIT') {
+            steps {
+
+                echo 'Pulling...';
+                git branch: 'feriel',
+                url : 'https://github.com/feres5/TP_Achat_devops',
+                credentialsId: '28e0f0c9-b1c8-4508-ae0b-6dbfc965a0d6';
+
+            }
+
+        }
+
+        
+      stage('MVN CLEAN'){
+            steps {
+                sh 'mvn clean'
+            }
+        }
+
+        stage('MVN COMPILE') {
+            steps{
+                sh 'mvn compile'
+            }
+        }
+	    
+        
+                stage('MVN TEST') {
+            steps{
+                sh 'mvn test -e '
+            }
+        }  
+        		stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+            }
+        }
+        
+        stage('NEXUS') {
+            steps {
+                sh 'mvn deploy -DskipTests'
+                  
+            }
+        }
+         stage('Build Docker image Backend') {
+            steps {
+                sh 'docker build -t ferielhakim/projetdevopsbackend . '
+                 
+            }
+        }
+        stage('Login Dockerhub') {
+
+			steps {
+			sh 'docker login -u ferielhakim -p 181JFT1565'
+			}
+			}
+        stage('Push image Backend to Dockerhub') {
+            steps {
+                sh 'docker push ferielhakim/projetdevopsbackend'
+                 
+            }
+        }
+        
+
+    }
+
+}
+
